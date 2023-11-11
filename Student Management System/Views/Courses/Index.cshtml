@@ -1,0 +1,103 @@
+﻿@model IEnumerable<Student_Management_System.Models.Course>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Courses</h1>
+<div class="row">
+    <div class="col-md-7 mt-4">
+        <div class="card">
+            <div class="card-header pb-0 px-3">
+                <h6 class="mb-0">Your Courses</h6>
+            </div>
+            <div class="card-body pt-4 p-3">
+                <ul class="list-group">
+                    <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+                        <div class="d-flex flex-column">
+                            <h6 class="mb-3 text-sm">Oliver Liam</h6>
+                            <span class="mb-2 text-xs">Company Name: <span class="text-dark font-weight-bold ms-sm-2">Viking Burrito</span></span>
+                            <span class="mb-2 text-xs">Email Address: <span class="text-dark ms-sm-2 font-weight-bold">oliver@burrito.com</span></span>
+                            <span class="text-xs">VAT Number: <span class="text-dark ms-sm-2 font-weight-bold">FRB1235476</span></span>
+                        </div>
+                        <div class="ms-auto text-end">
+                            <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;"><i class="far fa-trash-alt me-2"></i>Delete</a>
+                            <a class="btn btn-link text-dark px-3 mb-0" href="javascript:;"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</a>
+                        </div>
+                    </li>
+                    
+                 
+                </ul>
+            </div>
+        </div>
+    </div>
+    </div>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EnrollmentCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalSeats)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoomNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Timings)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProfessorName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnrollmentCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalSeats)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoomNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Timings)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProfessorName)
+            </td>
+            <td>
+                  <a asp-controller="Books" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

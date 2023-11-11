@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Student_Management_System.Models.Book>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="">
+                <h1>Index</h1>
+
+                <p>
+                    <a asp-action="Create">Create New</a>
+                </p>
+                <div class="card-body px-0 pt-0 pb-2">
+                    <div class="table-responsive p-0">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.BNo)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.BName)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Date)
+                                    </th>
+                                    <th>
+                                        <span class="badge badge-sm bg-gradient-secondary">@Html.DisplayNameFor(model => model.Status)</span>
+
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Author)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.BNo)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.BName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Date)
+                                        </td>
+                                        <td>
+
+                                            <span class="badge badge-sm bg-gradient-success">@Html.DisplayFor(modelItem => item.Status)</span>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Author)
+                                        </td>
+                                        <td>
+                                            <a asp-action="Edit" asp-route-id="@item.BNo">Edit</a> |
+                                            <a  asp-action="Details" asp-route-id="@item.BNo">Details</a> |
+                                            <a asp-action="Delete" asp-route-id="@item.BNo">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
