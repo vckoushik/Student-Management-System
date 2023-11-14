@@ -1,11 +1,12 @@
 ﻿
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Student_Management_System.Models;
 
 namespace Student_Management_System.Data
 {
-    public class AppDbContext:DbContext
+    public class AppDbContext: IdentityDbContext<SystemUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options):base(options) 
         {
@@ -46,6 +47,9 @@ namespace Student_Management_System.Data
         public DbSet<Resume> Resume { get; set; }
         public DbSet<Student> Student { get; set; }
         public DbSet<UniversityUpdate> UniversityUpdate { get; set; }
+        public DbSet<BorrowBook> BorrowBooks { get; set;}
+        public DbSet<Appointment> Appointment { get; set; } = default!;
 
+        public DbSet<CourseRegistration> CourseRegistration{ get; set;}
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Student_Management_System.Models
 {
-    public class Librarian
+    public class Librarian : SystemUser
     {
         [Key]
         public int Id { get; set; }

@@ -10,6 +10,9 @@ namespace Student_Management_System.Models
         public DateTime Date { get; set; } // Date Published
         public string Status { get; set; } // Book Status
         public string Author { get; set; } // Author Name
+        public string ISBN { get; set; }
+        public int AvailableCopies { get; set; }
+        public int TotalCopies { get; set; }
     }
 
 }

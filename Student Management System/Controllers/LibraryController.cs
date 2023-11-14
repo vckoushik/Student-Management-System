@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Student_Management_System.Data;
 using Student_Management_System.Models;
@@ -6,6 +7,8 @@ using Student_Management_System.Repo;
 
 namespace Student_Management_System.Controllers
 {
+    [Authorize(Roles ="Librarian,Admin")]
+
     public class LibraryController : Controller
     {
         private readonly AppDbContext _context;
@@ -16,6 +19,12 @@ namespace Student_Management_System.Controllers
             _bookRepository = bookRepository;
         }
         public IActionResult Index()
+        {
+            var books = _bookRepository.GetAllBooks();
+            return View(books);
+        }
+
+        public IActionResult LibraryIndex()
         {
             var books = _bookRepository.GetAllBooks();
             return View(books);

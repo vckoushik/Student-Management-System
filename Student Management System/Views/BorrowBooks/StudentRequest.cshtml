@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Student_Management_System.Models.BorrowBook>
+
+@{
+    ViewData["Title"] = "Student Requests";
+}
+
+<h1>Book Requests</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BorrowID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BorrowDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReturnDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RequestStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookNo)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+       
+        @foreach (var item in Model)
+        {
+            <tr>
+                    <td>
+                    @Html.DisplayFor(modmodelItem => item.BorrowID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BorrowDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReturnDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RequestStatus)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookNo)
+                    </td>
+            </tr>
+           
+
+        
+        }
+    </tbody>
+</table>

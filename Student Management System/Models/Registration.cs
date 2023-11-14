@@ -6,8 +6,9 @@ namespace Student_Management_System.Models
     {
         [Key]
         public int Id { get; set; }
-        public Student student { get; set; }
-        public Course course { get; set; }
+        public string UserId { get; set; }
+        public Course Course { get; set; }
         public DateTime RegistrationDate { get; set; }
+        public string Status { get; set; }
     }
 }
