@@ -4,9 +4,9 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
+<h1>Borrow</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Are you sure you want to borrow this?</h3>
 <div>
     <h4>BorrowBook</h4>
     <hr />
@@ -39,6 +39,6 @@
 
 
     <a asp-action="BorrowBook" class="btn btn-danger" asp-route-BookNumber="@Model.BookNo">Request Book</a>
-    <a asp-action="Index">Back to List</a>
+    <a asp-controller="Library" asp-action="LibraryIndex">Back to List</a>
 
 </div>

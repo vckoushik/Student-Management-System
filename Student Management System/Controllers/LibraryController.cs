@@ -7,7 +7,7 @@ using Student_Management_System.Repo;
 
 namespace Student_Management_System.Controllers
 {
-    [Authorize(Roles ="Librarian,Admin")]
+   
 
     public class LibraryController : Controller
     {

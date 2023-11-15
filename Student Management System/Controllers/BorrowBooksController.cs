@@ -200,7 +200,7 @@ namespace Student_Management_System.Controllers
             _context.BorrowBooks.Add(borrowBook);
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("LibraryIndex","Library");
         }
 
         private bool BorrowBookExists(int id)

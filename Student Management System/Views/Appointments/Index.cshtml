@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Student_Management_System.Models.Appointment>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Appointments";
 }
 
 <h1>Advisor Appointments</h1>
@@ -55,9 +55,16 @@
                 @Html.DisplayFor(modelItem => item.Purpose)
             </td>
             <td>
-                    <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+
+                    @if (User.IsInRole("Librarian") || User.IsInRole("Admin"))
+                    {
+                        <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+
+                        <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    }
+                    else{
                     <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@item.Id">Details</a>
-                    <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    }
             </td>
         </tr>
 }

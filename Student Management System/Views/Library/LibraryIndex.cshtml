@@ -1,16 +1,16 @@
 ﻿@model IEnumerable<Student_Management_System.Models.Book>
 
 @{
-    ViewData["Title"] = "Library Index";
+    ViewData["Title"] = "Library";
 }
 <div class="container-fluid py-4">
     <div class="row">
         <div class="col-12">
             <div class="">
-                <h1>Index</h1>
+                <h1>Library</h1>
 
                 <p>
-                    <a class="btn btn-primary" asp-action="Create">Create New</a>
+                    <a class="btn btn-primary" asp-controller="BorrowBooks" asp-action="StudentRequest">Borrowed Books</a>
                 </p>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-0">
@@ -57,7 +57,8 @@
                                             @Html.DisplayFor(modelItem => item.Author)
                                         </td>
                                         <td>
-                                            <a asp-controller="BorrowBooks" asp-action="BookRequest" asp-route-id="@item.BNo">Borrow</a>
+                                            <a class="btn btn-warning" asp-controller="BorrowBooks" asp-action="BookRequest" asp-route-id="@item.BNo">Borrow</a>
+                                            <a class="btn btn-info" asp-controller="Library" asp-action="Details" asp-route-id="@item.BNo">Details</a>
                                         </td>
                                     </tr>
                                 }
