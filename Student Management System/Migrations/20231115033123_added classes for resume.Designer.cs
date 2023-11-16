@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Student_Management_System.Data;
 
@@ -11,9 +12,11 @@ using Student_Management_System.Data;
 namespace Student_Management_System.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231115033123_added classes for resume")]
+    partial class addedclassesforresume
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -587,36 +590,6 @@ namespace Student_Management_System.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("GPA")
-                        .HasColumnType("float");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Major")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MiddleName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ResumeId")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -662,6 +635,10 @@ namespace Student_Management_System.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -711,10 +688,6 @@ namespace Student_Management_System.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<string>("user_type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -727,7 +700,7 @@ namespace Student_Management_System.Migrations
 
                     b.ToTable("AspNetUsers", (string)null);
 
-                    b.HasDiscriminator<string>("user_type").HasValue("SystemUser");
+                    b.HasDiscriminator<string>("Discriminator").HasValue("SystemUser");
 
                     b.UseTphMappingStrategy();
                 });
@@ -770,7 +743,7 @@ namespace Student_Management_System.Migrations
                                 .HasColumnName("CareerAdvisor_Name");
                         });
 
-                    b.HasDiscriminator().HasValue("career_advisor");
+                    b.HasDiscriminator().HasValue("CareerAdvisor");
                 });
 
             modelBuilder.Entity("Student_Management_System.Models.Librarian", b =>
@@ -781,7 +754,7 @@ namespace Student_Management_System.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasDiscriminator().HasValue("librarian");
+                    b.HasDiscriminator().HasValue("Librarian");
                 });
 
             modelBuilder.Entity("Student_Management_System.Models.Student", b =>
@@ -807,7 +780,11 @@ namespace Student_Management_System.Migrations
 
                     b.HasIndex("AddressId");
 
-                    b.HasDiscriminator().HasValue("student");
+                    b.HasIndex("ResumeId")
+                        .IsUnique()
+                        .HasFilter("[ResumeId] IS NOT NULL");
+
+                    b.HasDiscriminator().HasValue("Student");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -952,7 +929,15 @@ namespace Student_Management_System.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Student_Management_System.Models.Resume", "Resume")
+                        .WithOne("Student")
+                        .HasForeignKey("Student_Management_System.Models.Student", "ResumeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Address");
+
+                    b.Navigation("Resume");
                 });
 
             modelBuilder.Entity("Student_Management_System.Models.Resume", b =>
@@ -966,6 +951,9 @@ namespace Student_Management_System.Migrations
                     b.Navigation("Projects");
 
                     b.Navigation("Skills");
+
+                    b.Navigation("Student")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

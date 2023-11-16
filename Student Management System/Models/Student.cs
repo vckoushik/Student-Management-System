@@ -6,11 +6,8 @@ namespace Student_Management_System.Models
     {
         [Key]
         [Required]
-        public int Id { get; set; }
-        [Required]
-        public string FirstName { get; set; }
-        [Required]
-        public string LastName { get; set; }
+        public string Id { get; set; }
+
         public string MiddleName { get; set; }
         [Required]
         [EmailAddress]
@@ -21,5 +18,6 @@ namespace Student_Management_System.Models
         public Address Address{ get; set; }
         public double GPA { get; set; }
         public string Major { get; set; }
+        public int ResumeId { get; set; }
     }
 }

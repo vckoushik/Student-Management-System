@@ -1,0 +1,203 @@
+﻿@model Student_Management_System.Models.Resume
+
+
+@{
+    ViewBag.Title = "Create Resume";
+}
+
+<div class="container mt-5">
+    <h2>Create Your Resume</h2>
+
+    @using (Html.BeginForm("Create", "Resume", FormMethod.Post, new { @class = "mt-4" }))
+    {
+        <!-- Student Information -->
+        <h3>Student Information</h3>
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName, "First Name")
+            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName, "Last Name")
+            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.MiddleName, "Middle Name")
+            @Html.TextBoxFor(model => model.MiddleName, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, "Email")
+            @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PhoneNumber, "Phone Number")
+            @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.GPA, "GPA")
+            @Html.TextBoxFor(model => model.GPA, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Major, "Major")
+            @Html.TextBoxFor(model => model.Major, new { @class = "form-control" })
+        </div>
+
+        <!-- Education -->
+        <h3>Education</h3>
+        @for (int i = 0; i < 2; i++)
+        {
+            <div class="education-section">
+                <h4>Education @i</h4>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Education[i].Degree, "Degree")
+                    @Html.TextBoxFor(model => model.Education[i].Degree, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Education[i].Institution, "Institution")
+                    @Html.TextBoxFor(model => model.Education[i].Institution, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Education[i].Year, "Year")
+                    @Html.TextBoxFor(model => model.Education[i].Year, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Education[i].Description, "Description")
+                    @Html.TextBoxFor(model => model.Education[i].Description, new { @class = "form-control" })
+                </div>
+            </div>
+        }
+        <button type="button" class="btn btn-secondary" id="addEducation">Add Education</button>
+
+        <!-- Experiences -->
+        <h3>Experiences</h3>
+        @for (int i = 0; i < 2; i++)
+        {
+            <div class="experience-section">
+                <h4>Experience @i</h4>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Experiences[i].Title, "Title")
+                    @Html.TextBoxFor(model => model.Experiences[i].Title, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Experiences[i].Company, "Company")
+                    @Html.TextBoxFor(model => model.Experiences[i].Company, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Experiences[i].Year, "Year")
+                    @Html.TextBoxFor(model => model.Experiences[i].Year, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Experiences[i].Description, "Description")
+                    @Html.TextBoxFor(model => model.Experiences[i].Description, new { @class = "form-control" })
+                </div>
+            </div>
+        }
+        <button type="button" class="btn btn-secondary" id="addExperience">Add Experience</button>
+
+        <!-- Skills -->
+        <h3>Skills</h3>
+        @for (int i = 0; i <5; i++)
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.Skills[i].Name, "Skill "+@i)
+                @Html.TextBoxFor(model => model.Skills[i].Name, new { @class = "form-control" })
+            </div>
+        }
+        <button type="button" class="btn btn-secondary" id="addSkill">Add Skill</button>
+
+        <!-- Certifications -->
+        <h3>Certifications</h3>
+        @for (int i = 0; i < 4; i++)
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.Certifications[i].Name, "Certification "+@i)
+                @Html.TextBoxFor(model => model.Certifications[i].Name, new { @class = "form-control" })
+            </div>
+        }
+        <button type="button" class="btn btn-secondary" id="addCertification">Add Certification</button>
+
+        <!-- Projects -->
+        <h3>Projects</h3>
+        @for (int i = 0; i < 2; i++)
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.Projects[i].Name, "Project "+@i)
+                @Html.TextBoxFor(model => model.Projects[i].Name, new { @class = "form-control" })
+            </div>
+        }
+        <button type="button" class="btn btn-secondary" id="addProject">Add Project</button>
+
+        <input type="submit" value="Generate Resume" class="btn btn-primary mt-3" />
+    }
+</div>
+
+@section scripts {
+    <script>
+        // Add education section dynamically
+        $("#addEducation").click(function () {
+            var index = $(".education-section").length;
+            var newEducationSection = $(".education-section:first").clone();
+            newEducationSection.find("input, select").each(function () {
+                var newName = $(this).attr("name").replace("[0]", "[" + index + "]");
+                $(this).attr("name", newName);
+                $(this).attr("id", newName);  // Add this line to update the ID attribute
+                $(this).val("");
+            });
+            newEducationSection.find("h4").text("Education " + index);
+            $(".education-section:last").after(newEducationSection);
+        });
+
+        // Add experience section dynamically
+        $("#addExperience").click(function () {
+            var index = $(".experience-section").length;
+            var newExperienceSection = $(".experience-section:first").clone();
+            newExperienceSection.find("input, select").each(function () {
+                var newName = $(this).attr("name").replace("[0]", "[" + index + "]");
+                $(this).attr("name", newName);
+                $(this).attr("id", newName);  // Add this line to update the ID attribute
+                $(this).val("");
+            });
+            newExperienceSection.find("h4").text("Experience " + index);
+            $(".experience-section:last").after(newExperienceSection);
+        });
+
+        // Add skill section dynamically
+        $("#addSkill").click(function () {
+            var index = $(".skill-section").length;
+            var newSkillSection = $(".skill-section:first").clone();
+            newSkillSection.find("input, select").each(function () {
+                var newName = $(this).attr("name").replace("[0]", "[" + index + "]");
+                $(this).attr("name", newName);
+                $(this).attr("id", newName);  // Add this line to update the ID attribute
+                $(this).val("");
+            });
+            $(".skill-section:last").after(newSkillSection);
+        });
+
+        // Add certification section dynamically
+        $("#addCertification").click(function () {
+            var index = $(".certification-section").length;
+            var newCertificationSection = $(".certification-section:first").clone();
+            newCertificationSection.find("input, select").each(function () {
+                var newName = $(this).attr("name").replace("[0]", "[" + index + "]");
+                $(this).attr("name", newName);
+                $(this).attr("id", newName);  // Add this line to update the ID attribute
+                $(this).val("");
+            });
+            $(".certification-section:last").after(newCertificationSection);
+        });
+
+        // Add project section dynamically
+        $("#addProject").click(function () {
+            var index = $(".project-section").length;
+            var newProjectSection = $(".project-section:first").clone();
+            newProjectSection.find("input, select").each(function () {
+                var newName = $(this).attr("name").replace("[0]", "[" + index + "]");
+                $(this).attr("name", newName);
+                $(this).attr("id", newName);  // Add this line to update the ID attribute
+                $(this).val("");
+            });
+            $(".project-section:last").after(newProjectSection);
+        });
+    </script>
+}

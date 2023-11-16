@@ -1,0 +1,109 @@
+﻿@model Student_Management_System.Models.Resume
+
+@{
+    ViewData["Title"] = "Details";
+}
+<style>
+    /* Customize styles as needed */
+
+    .resume-section {
+        background-color: #ffffff;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        color: #007bff;
+    }
+
+    h3 {
+        color: #343a40;
+    }
+</style>
+
+<h1>Details</h1>
+<div class="container mt-4">
+    <div class="resume-section">
+        <h2>Student Information</h2>
+        <dl class="row">
+            <dt class="col-sm-3">Name:</dt>
+            <dd class="col-sm-9">@($"{Model.FirstName} {Model.LastName}")</dd>
+
+           <dt class="col-sm-3">Email:</dt>
+        <dd class="col-sm-9">@Model.Email</dd>
+
+        <dt class="col-sm-3">Phone Number:</dt>
+        <dd class="col-sm-9">@Model.PhoneNumber</dd>
+
+        <dt class="col-sm-3">GPA:</dt>
+        <dd class="col-sm-9">@Model.GPA</dd>
+
+        <dt class="col-sm-3">Major:</dt>
+        <dd class="col-sm-9">@Model.Major</dd>
+
+
+            <!-- Add other student information fields here -->
+        </dl>
+    </div>
+
+    <div class="resume-section">
+        <h2>Education</h2>
+        <ul>
+            @foreach (var education in Model.Education)
+            {
+                <li>
+                    <h3>@education.Degree</h3>
+                    <p>@education.Institution, @education.Year</p>
+                    <p>@education.Description</p>
+                    <!-- Add other education details here -->
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div class="resume-section">
+        <h2>Experiences</h2>
+        @foreach (var experience in @Model.Experiences)
+        {
+            <div>
+                <h3>@experience.Title</h3>
+                <p>@experience.Company, @experience.Year</p>
+               <p>@experience.Description</p>
+            </div>
+        }
+    </div>
+
+    <!-- Add other sections (Skills, Certifications, Projects) as needed -->
+    <div class="resume-section">
+        <h2>Skills</h2>
+        @foreach (var skill in @Model.Skills)
+        {
+            <div>
+                <p>@skill.Name</p>
+            </div>
+        }
+    </div>
+    <div class="resume-section">
+        <h2>Certifications</h2>
+        @foreach (var certification in @Model.Certifications)
+        {
+            <div>
+                <p>@certification.Name</p>
+            </div>
+        }
+    </div>
+    <div class="resume-section">
+        <h2>Projects</h2>
+        @foreach (var project in @Model.Projects)
+        {
+            <div>
+                <p>@project.Name</p>
+            </div>
+        }
+    </div>
+</div>
+    <a class="btn btn-danger" asp-action="Export" asp-route-id="@Model?.Id">Export</a>
+    <a class="btn btn-primary" asp-action="Index">Back to List</a>
+

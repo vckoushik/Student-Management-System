@@ -12,6 +12,16 @@ namespace Student_Management_System.Data
         {
 
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<SystemUser>()
+                .HasDiscriminator<string>("user_type")
+                .HasValue<Student>("student")
+                .HasValue<Librarian>("librarian")
+                .HasValue<CareerAdvisor>("career_advisor");
+        }
 
         //config need to add rows to tables
         /*
@@ -45,6 +55,13 @@ namespace Student_Management_System.Data
         public DbSet<Librarian> Librarian { get; set; }
         public DbSet<Registration> Registration { get; set; }
         public DbSet<Resume> Resume { get; set; }
+        public DbSet<Education> Education { get; set; }
+        public DbSet<Experience> Experience { get; set; }
+
+        public DbSet<Skill> Skill { get; set; }
+        public DbSet<Certification> Certification { get; set; }
+        public DbSet<Project> Project { get; set; }
+
         public DbSet<Student> Student { get; set; }
         public DbSet<UniversityUpdate> UniversityUpdate { get; set; }
         public DbSet<BorrowBook> BorrowBooks { get; set;}

@@ -18,10 +18,7 @@ namespace Student_Management_System.Repo
             return _context.Student.Include(s => s.Address).ToList();
         }
 
-        public Student GetStudentById(int studentId)
-        {
-            return _context.Student.Include(s => s.Address).FirstOrDefault(s => s.Id == studentId);
-        }
+   
 
         public void AddStudent(Student student)
         {
