@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Student_Management_System.Data;
 using Student_Management_System.Models;
+using System.Data;
 
 namespace Student_Management_System.Controllers
 {
@@ -18,10 +20,19 @@ namespace Student_Management_System.Controllers
             _userManager = userManager;
             _httpContextAccessor = httpContextAccessor;
         }
+        [Authorize(Roles = "Admin, Advisor")]
         public IActionResult Index()
         {
             var resumes= _context.Resume.ToList();
             return View(resumes);
+        }
+
+        public async Task<IActionResult> MyResume()
+        {
+            var UserId = GetUserId();
+            return _context.Resume != null ?
+                        View(await _context.Resume.Where(a => a.UserId == UserId).ToListAsync()) :
+                        Problem("Entity set 'AppDbContext.Resume'  is null.");
         }
         public async Task<IActionResult> Details(int? id)
         {
@@ -35,6 +46,7 @@ namespace Student_Management_System.Controllers
                      .Include(r => r.Experiences)
                      .Include(r => r.Skills)
                      .Include(r => r.Certifications)
+                     .Include(r=>r.Projects)
                      .Where(r => r.Id == id)
                      .FirstOrDefault();
             if (resume == null)
@@ -56,6 +68,7 @@ namespace Student_Management_System.Controllers
                      .Include(r => r.Experiences)
                      .Include(r => r.Skills)
                      .Include(r => r.Certifications)
+                     .Include(r => r.Projects)
                      .Where(r => r.Id == id)
                      .FirstOrDefault();
             if (resume == null)

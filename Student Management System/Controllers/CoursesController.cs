@@ -26,16 +26,28 @@ namespace Student_Management_System.Controllers
            _httpContextAccessor = httpContextAccessor;
         }
 
-
-        public async Task<IActionResult> Index()
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Index(string? SearchQuery)
         {
+            if (SearchQuery != null)
+            {
+                return _context.Course != null ?
+                                         View(await _context.Course.Where(c=>c.Name.Contains(SearchQuery)).ToListAsync()) :
+                                         Problem("Entity set 'AppDbContext.Course'  is null.");
+            }
               return _context.Course != null ? 
                           View(await _context.Course.ToListAsync()) :
                           Problem("Entity set 'AppDbContext.Course'  is null.");
         }
 
-        public async Task<IActionResult> AvailableCourses()
+        public async Task<IActionResult> AvailableCourses(string? SearchQuery)
         {
+            if (SearchQuery != null)
+            {
+                return _context.Course != null ?
+                                         View(await _context.Course.Where(c => c.Name.Contains(SearchQuery)).ToListAsync()) :
+                                         Problem("Entity set 'AppDbContext.Course'  is null.");
+            }
             return _context.Course != null ?
                         View(await _context.Course.ToListAsync()) :
                         Problem("Entity set 'AppDbContext.Course'  is null.");
@@ -57,7 +69,7 @@ namespace Student_Management_System.Controllers
 
             return View(course);
         }
-
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -66,6 +78,7 @@ namespace Student_Management_System.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("Id,Name,Description,Status,EnrollmentCount,TotalSeats,RoomNumber,Timings,ProfessorName")] Course course)
         {
             if (ModelState.IsValid)
@@ -77,7 +90,7 @@ namespace Student_Management_System.Controllers
             return View(course);
         }
 
-
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Course == null)
@@ -98,7 +111,7 @@ namespace Student_Management_System.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Status,EnrollmentCount,TotalSeats,RoomNumber,Timings,ProfessorName")] Course course)
         {
             if (id != course.Id)
@@ -133,10 +146,10 @@ namespace Student_Management_System.Controllers
         {
             var UserId = GetUserId();
             return _context.Course != null ?
-                        View(await _context.CourseRegistration.Where(c=>c.UserId == UserId).ToListAsync()) :
+                        View(await _context.CourseRegistration.Include(c=>c.Course).Where(c=>c.UserId == UserId).ToListAsync()) :
                         Problem("Entity set 'AppDbContext.Course'  is null.");
         }
-
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Course == null)
@@ -156,6 +169,7 @@ namespace Student_Management_System.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Course == null)

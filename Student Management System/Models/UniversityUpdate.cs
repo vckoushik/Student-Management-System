@@ -8,6 +8,7 @@ namespace Student_Management_System.Models
             public int UpdateId { get; set; }
             public string UpdateName { get; set; }
             public string Description { get; set; }
+            public string Image { get; set; }   
             public DateTime Date { get; set; }
         
     }

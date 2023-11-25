@@ -61,5 +61,12 @@
     </dl>
 </div>
 <div>
-    <a class="btn btn-primary"  asp-action="Index">Back to List</a>
+     @if (User.IsInRole("Librarian") || User.IsInRole("Admin"))
+    {
+            <a class="btn btn-primary" asp-action="Index">Back to List</a>
+    }
+    else
+    {
+        <a class="btn btn-primary" asp-action="AvailableCourses">Back to List</a>
+    }
 </div>

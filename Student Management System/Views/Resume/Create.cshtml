@@ -2,7 +2,7 @@
 
 
 @{
-    ViewBag.Title = "Create Resume";
+    ViewBag.Title = "Resume";
 }
 
 <div class="container mt-5">
@@ -125,7 +125,6 @@
                 @Html.TextBoxFor(model => model.Projects[i].Name, new { @class = "form-control" })
             </div>
         }
-        <button type="button" class="btn btn-secondary" id="addProject">Add Project</button>
 
         <input type="submit" value="Generate Resume" class="btn btn-primary mt-3" />
     }

@@ -1,16 +1,3 @@
-// =========================================================
-// Soft UI Dashboard - v1.0.7
-// =========================================================
-
-// Product Page: https://www.creative-tim.com/product/soft-ui-dashboard
-// Copyright 2023 Creative Tim (https://www.creative-tim.com)
-// Licensed under MIT (https://github.com/creativetimofficial/soft-ui-dashboard/blob/main/LICENSE)
-
-// Coded by www.creative-tim.com
-
-// =========================================================
-
-// The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 "use strict";
 (function() {
@@ -213,10 +200,6 @@ function getEventTarget(e) {
   return e.target || e.srcElement;
 }
 
-// End tabs navigation
-
-
-//Set Sidebar Color
 function sidebarColor(a) {
   var parent = a.parentElement.children;
   var color = a.getAttribute("data-color");
@@ -248,7 +231,6 @@ function sidebarColor(a) {
 
 }
 
-// Set Navbar Fixed
 function navbarFixed(el) {
   let classes = ['position-sticky', 'blur', 'shadow-blur', 'mt-4', 'left-auto', 'top-1', 'z-index-sticky'];
   const navbar = document.getElementById('navbarBlur');
@@ -330,11 +312,6 @@ function navbarBlurOnScroll(id) {
 }
 
 
-// Debounce Function
-// Returns a function, that, as long as it continues to be invoked, will not
-// be triggered. The function will be called after it stops being called for
-// N milliseconds. If `immediate` is passed, trigger the function on the
-// leading edge, instead of the trailing.
 function debounce(func, wait, immediate) {
   var timeout;
   return function() {
@@ -351,7 +328,6 @@ function debounce(func, wait, immediate) {
   };
 };
 
-//Set Sidebar Type
 function sidebarType(a) {
   var parent = a.parentElement.children;
   var color = a.getAttribute("data-class");
@@ -379,7 +355,6 @@ function sidebarType(a) {
 }
 
 
-// Toggle Sidenav
 const iconNavbarSidenav = document.getElementById('iconNavbarSidenav');
 const iconSidenav = document.getElementById('iconSidenav');
 const sidenav = document.getElementById('sidenav-main');
@@ -410,7 +385,6 @@ function toggleSidenav() {
   }
 }
 
-// Resize navbar color depends on configurator active type of sidenav
 
 let referenceButtons = document.querySelector('[data-class]');
 
@@ -429,7 +403,6 @@ function navbarColorOnResize() {
   }
 }
 
-// Deactivate sidenav type buttons on resize and small screens
 window.addEventListener("resize", sidenavTypeOnResize);
 window.addEventListener("load", sidenavTypeOnResize);
 

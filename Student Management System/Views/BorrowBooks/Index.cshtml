@@ -1,15 +1,15 @@
 ﻿@model IEnumerable<Student_Management_System.Models.BorrowBook>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "BorrowBook";
 }
 
-<h1>Index</h1>
+<h1>Book Requests</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn btn-primary" asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<table class="table table-bordered table-hover">
     <thead>
         <tr>
             <th>
@@ -43,9 +43,9 @@
                 @Html.DisplayFor(modelItem => item.UserId)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.BorrowID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.BorrowID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.BorrowID">Delete</a>
+                    <a class ="btn btn-warning" asp-action="Edit" asp-route-id="@item.BorrowID">Edit</a> 
+                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.BorrowID">Details</a> 
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.BorrowID">Delete</a>
             </td>
         </tr>
 }

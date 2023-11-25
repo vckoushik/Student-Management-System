@@ -59,7 +59,7 @@ app.UseEndpoints(endpoints =>
 using (var scope = app.Services.CreateScope())
 {
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-    var roles = new[] { "Admin", "Librarian", "Student" };
+    var roles = new[] { "Admin", "Librarian", "Student","Advisor" };
     foreach (var role in roles)
     {
         if (!await roleManager.RoleExistsAsync(role))
@@ -96,6 +96,20 @@ using (var scope = app.Services.CreateScope())
         user.LastName = "Librarian";
         await userManager.CreateAsync(user, lpassword);
         await userManager.AddToRoleAsync(user, "Librarian");
+    }
+
+    string aemail = "advisor1@gmail.com";
+    string apassword = "Test123*";
+    if (await userManager.FindByEmailAsync(aemail) == null)
+    {
+        var user = new SystemUser();
+        user.Email = aemail;
+        user.UserName = aemail;
+        user.EmailConfirmed = true;
+        user.FirstName = "Advisor";
+        user.LastName = "Advisor";
+        await userManager.CreateAsync(user, apassword);
+        await userManager.AddToRoleAsync(user, "Advisor");
     }
 }
 

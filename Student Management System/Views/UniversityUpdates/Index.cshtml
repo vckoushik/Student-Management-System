@@ -18,7 +18,7 @@
             <div class="card">
                 <div class="card-header p-0 mx-3 mt-3 position-relative z-index-1">
                     <a href="javascript:;" class="d-block">
-                        <img src="~/media/campus-events-310.jpg" class="img-fluid border-radius-lg">
+                        <img src=" @Html.DisplayFor(modelItem => item.Image)" class="img-fluid border-radius-lg">
                     </a>
                 </div>
 
@@ -30,7 +30,13 @@
                     <p class="card-description mb-4">
                         Date: @Html.DisplayFor(modelItem => item.Date)
                     </p>
-                   
+                    @if (User.IsInRole("Librarian") || User.IsInRole("Admin"))
+                   {
+           
+                   <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.UpdateId">Edit</a>
+                   <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.UpdateId">Delete</a>
+                  }
+ 
                 </div>
             </div>
         </div>

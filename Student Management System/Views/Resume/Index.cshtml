@@ -1,15 +1,15 @@
 ﻿@model IEnumerable<Student_Management_System.Models.Resume>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Resume";
 }
 
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
 </p>
-<table class="table">
+<table class="table table-bordered table-hover">
     <thead>
         <tr>
             <th>
@@ -36,7 +36,7 @@
             <th></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody style="text-align:center">
 @foreach (var item in Model) {
         <tr>
             <td>

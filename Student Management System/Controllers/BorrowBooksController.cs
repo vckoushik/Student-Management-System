@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,6 +13,7 @@ using Student_Management_System.Models;
 
 namespace Student_Management_System.Controllers
 {
+  
     public class BorrowBooksController : Controller
     {
         private readonly AppDbContext _context;
@@ -23,7 +26,7 @@ namespace Student_Management_System.Controllers
             _userManager = userManager;
             _httpContextAccessor = httpContextAccessor;
         }
-
+        [Authorize(Roles = "Admin, Librarian")]
         // GET: BorrowBooks
         public async Task<IActionResult> Index()
         {
@@ -40,6 +43,7 @@ namespace Student_Management_System.Controllers
         }
 
         // GET: BorrowBooks/Details/5
+        [Authorize(Roles = "Admin, Librarian")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.BorrowBooks == null)
@@ -58,6 +62,7 @@ namespace Student_Management_System.Controllers
         }
 
         // GET: BorrowBooks/Create
+
         public IActionResult Create()
         {
             return View();
@@ -80,6 +85,7 @@ namespace Student_Management_System.Controllers
         }
 
         // GET: BorrowBooks/Edit/5
+        [Authorize(Roles = "Admin, Librarian")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.BorrowBooks == null)
@@ -100,6 +106,7 @@ namespace Student_Management_System.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Librarian")]
         public async Task<IActionResult> Edit(int id, [Bind("BorrowID,BorrowDate,ReturnDate,RequestStatus,UserId")] BorrowBook borrowBook)
         {
             if (id != borrowBook.BorrowID)
@@ -131,6 +138,7 @@ namespace Student_Management_System.Controllers
         }
 
         // GET: BorrowBooks/Delete/5
+        [Authorize(Roles = "Admin, Librarian")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.BorrowBooks == null)
@@ -150,6 +158,7 @@ namespace Student_Management_System.Controllers
 
         // POST: BorrowBooks/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin, Librarian")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

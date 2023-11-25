@@ -18,8 +18,14 @@ namespace Student_Management_System.Controllers
             _context = context;
             _bookRepository = bookRepository;
         }
-        public IActionResult Index()
+        public IActionResult Index(string? SearchQuery)
         {
+            if (SearchQuery != null)
+            {
+                return _context.Book != null ?
+                                         View(_context.Book.Where(c => c.BName.Contains(SearchQuery)).ToList()) :
+                                         Problem("Entity set 'AppDbContext.Course'  is null.");
+            }
             var books = _bookRepository.GetAllBooks();
             return View(books);
         }
@@ -56,7 +62,7 @@ namespace Student_Management_System.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BNo,BName,Date,Status,Author")] Book book)
+        public async Task<IActionResult> Create([Bind("BNo,BName,Date,Status,Author,ISBN,AvailableCopies,TotalCopies")] Book book)
         {
             if (ModelState.IsValid)
             {

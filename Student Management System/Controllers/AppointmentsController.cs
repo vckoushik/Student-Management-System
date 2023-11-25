@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +28,7 @@ namespace Student_Management_System.Controllers
         }
 
         // GET: Appointments
+        [Authorize(Roles = "Admin, Advisor")]
         public async Task<IActionResult> Index()
         {
               return _context.Appointment != null ? 
@@ -83,6 +86,7 @@ namespace Student_Management_System.Controllers
         }
 
         // GET: Appointments/Edit/5
+        [Authorize(Roles = "Admin, Advisor")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Appointment == null)
@@ -103,6 +107,7 @@ namespace Student_Management_System.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Advisor")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,StudentId,AdvisorId,StartTime,EndTime,Location,Purpose")] Appointment appointment)
         {
             if (id != appointment.Id)
@@ -134,6 +139,7 @@ namespace Student_Management_System.Controllers
         }
 
         // GET: Appointments/Delete/5
+        [Authorize(Roles = "Admin,Advisor")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Appointment == null)
@@ -154,6 +160,7 @@ namespace Student_Management_System.Controllers
         // POST: Appointments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Advisor")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Appointment == null)
