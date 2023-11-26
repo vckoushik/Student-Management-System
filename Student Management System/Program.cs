@@ -18,6 +18,7 @@ builder.Services.AddDefaultIdentity<SystemUser>(options => options.SignIn.Requir
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IBookRepository, BookRepository>();
+builder.Services.AddTransient<ICourseRepository, CourseRepository>();
 builder.Services.AddRazorPages();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();

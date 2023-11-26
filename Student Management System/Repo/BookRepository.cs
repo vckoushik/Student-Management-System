@@ -7,7 +7,7 @@ namespace Student_Management_System.Repo
 {
     public class BookRepository : IBookRepository
     {
-            private readonly AppDbContext _context;
+        private readonly AppDbContext _context;
         private readonly UserManager<SystemUser> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
         public BookRepository(AppDbContext context, UserManager<SystemUser> userManager, IHttpContextAccessor contextAccessor)
