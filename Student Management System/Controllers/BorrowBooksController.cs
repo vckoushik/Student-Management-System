@@ -38,7 +38,7 @@ namespace Student_Management_System.Controllers
         {
             var UserId = GetUserId();
             return _context.BorrowBooks != null ?
-                        View(await _context.BorrowBooks.Where(b=>b.UserId==UserId).ToListAsync()) :
+                        View(await _context.BorrowBooks.Where(b => b.UserId == UserId).OrderByDescending(r => r.BorrowID).ToListAsync()) :
                         Problem("Entity set 'AppDbContext.BorrowBooks'  is null.");
         }
 
@@ -185,6 +185,7 @@ namespace Student_Management_System.Controllers
             borrowBook.ReturnDate = borrowBook.BorrowDate.AddDays(15);
             borrowBook.UserId = GetUserId();
             borrowBook.BookNo = id ?? default(int);
+            
             return View(borrowBook);
         }
 

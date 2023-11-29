@@ -82,7 +82,7 @@ namespace Student_Management_System.Controllers
 
                 _context.Add(appointment);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(MyAppointments));
         }
 
         // GET: Appointments/Edit/5

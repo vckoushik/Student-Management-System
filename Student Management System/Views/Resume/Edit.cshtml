@@ -1,0 +1,159 @@
+﻿@model Student_Management_System.Models.Resume
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Resume</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" asp-controller="Resume">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ResumeId" />
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <input asp-for="UserId" class="form-control" readonly/>
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MiddleName" class="control-label"></label>
+                <input asp-for="MiddleName" class="form-control" />
+                <span asp-validation-for="MiddleName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GPA" class="control-label"></label>
+                <input asp-for="GPA" class="form-control" />
+                <span asp-validation-for="GPA" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Major" class="control-label"></label>
+                <input asp-for="Major" class="form-control" />
+                <span asp-validation-for="Major" class="text-danger"></span>
+            </div>
+        
+
+            <h3>Education</h3>
+            @for (int i = 0; i < 2; i++)
+            {
+                <div class="education-section">
+                    <h4>Education @(i + 1)</h4>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Education[i].Degree, "Degree")
+                        @Html.TextBoxFor(model => model.Education[i].Degree, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Education[i].Institution, "Institution")
+                        @Html.TextBoxFor(model => model.Education[i].Institution, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Education[i].Year, "Year")
+                        @Html.TextBoxFor(model => model.Education[i].Year, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Education[i].Description, "Description")
+                        @Html.TextBoxFor(model => model.Education[i].Description, new { @class = "form-control" })
+                    </div>
+                </div>
+            }
+            <h3>Experiences</h3>
+
+            @for (int i = 0; i < 2; i++)
+            {
+                <div class="experience-section">
+                    <h4>Experience @(i + 1)</h4>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Experiences[i].Title, "Title")
+                        @Html.TextBoxFor(model => model.Experiences[i].Title, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Experiences[i].Company, "Company")
+                        @Html.TextBoxFor(model => model.Experiences[i].Company, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Experiences[i].Year, "Year")
+                        @Html.TextBoxFor(model => model.Experiences[i].Year, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Experiences[i].Description, "Description")
+                        @Html.TextBoxFor(model => model.Experiences[i].Description, new { @class = "form-control" })
+                    </div>
+                </div>
+            }
+
+            <h3>Skills</h3>
+            @for (int i = 0; i < 5; i++)
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Skills[i].Name, "Skill "+ (i+1))
+                    @Html.TextBoxFor(model => model.Skills[i].Name, new { @class = "form-control" })
+                </div>
+            }
+
+
+            <!-- Certifications -->
+            <h3>Certifications</h3>
+            @for (int i = 0; i < 4; i++)
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Certifications[i].Name, "Certification "+ (i+1))
+                    @Html.TextBoxFor(model => model.Certifications[i].Name, new { @class = "form-control" })
+                </div>
+            }
+
+            <!-- Projects -->
+            <h3>Projects</h3>
+            @for (int i = 0; i < 2; i++)
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Projects[i].Name, "Project "+ (i+1))
+                    @Html.TextBoxFor(model => model.Projects[i].Name, new { @class = "form-control" })
+                </div>
+            }
+
+
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+   @if ( User.IsInRole("Admin"))
+    {
+         <a asp-action="Index">Back to List</a>        
+    }
+    else
+    {
+        <a asp-action="MyResume">Back to List</a>
+    }
+   
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

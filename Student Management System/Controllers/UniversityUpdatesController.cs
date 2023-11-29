@@ -48,7 +48,7 @@ namespace Student_Management_System.Controllers
         }
        
         // GET: UniversityUpdates/Create
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Advisor")]
         public IActionResult Create()
         {
             return View();
@@ -71,7 +71,7 @@ namespace Student_Management_System.Controllers
         }
 
         // GET: UniversityUpdates/Edit/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Advisor")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.UniversityUpdate == null)
@@ -92,7 +92,7 @@ namespace Student_Management_System.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Advisor")]
         public async Task<IActionResult> Edit(int id, [Bind("UpdateId,UpdateName,Description,Date,Image")] UniversityUpdate universityUpdate)
         {
             if (id != universityUpdate.UpdateId)
@@ -124,7 +124,7 @@ namespace Student_Management_System.Controllers
         }
 
         // GET: UniversityUpdates/Delete/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Advisor")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.UniversityUpdate == null)
@@ -145,7 +145,7 @@ namespace Student_Management_System.Controllers
         // POST: UniversityUpdates/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Advisor")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.UniversityUpdate == null)

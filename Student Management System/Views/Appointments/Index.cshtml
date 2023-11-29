@@ -6,12 +6,19 @@
 
 <h1>Advisor Appointments</h1>
 
-<p>
-    <a class="btn btn-primary" asp-action="Create">Create New</a>
-</p>
+ @if (User.IsInRole("Advisor") || User.IsInRole("Admin"))
+{
+    <p></p>
+}
+else
+{
+    <p>
+        <a class="btn btn-primary" asp-action="Create">Create New</a>
+    </p>
+}
 <table class="table">
     <thead>
-        <tr>
+        <tr class="text-primary">
             <th>
                 @Html.DisplayNameFor(model => model.StudentId)
             </th>
@@ -56,7 +63,7 @@
             </td>
             <td>
 
-                    @if (User.IsInRole("Librarian") || User.IsInRole("Admin"))
+                    @if (User.IsInRole("Advisor") || User.IsInRole("Admin"))
                     {
                         <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
 

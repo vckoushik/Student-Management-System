@@ -5,7 +5,7 @@
 }
 
 <h1>University Updates</h1>
-@if (User.IsInRole("Librarian") || User.IsInRole("Admin"))
+@if (User.IsInRole("Advisor") || User.IsInRole("Admin"))
 {
     <p>
         <a class="btn btn-primary" asp-action="Create">Create New</a>
@@ -30,7 +30,7 @@
                     <p class="card-description mb-4">
                         Date: @Html.DisplayFor(modelItem => item.Date)
                     </p>
-                    @if (User.IsInRole("Librarian") || User.IsInRole("Admin"))
+                    @if (User.IsInRole("Advisor") || User.IsInRole("Admin"))
                    {
            
                    <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.UpdateId">Edit</a>

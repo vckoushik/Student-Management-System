@@ -136,6 +136,129 @@ namespace Student_Management_System.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null || _context.Book == null)
+            {
+                return NotFound();
+            }
+
+            var resume = _context.Resume.Include(r => r.Education)
+                     .Include(r => r.Experiences)
+                     .Include(r => r.Skills)
+                     .Include(r => r.Certifications)
+                     .Include(r => r.Projects)
+                     .Where(r => r.Id == id)
+                     .FirstOrDefault(); ;
+            if (resume == null)
+            {
+                return NotFound();
+            }
+            return View(resume);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int ResumeId, Resume resume)
+        {
+            if (ResumeId != resume.ResumeId)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+
+                _context.Entry(resume).State = EntityState.Modified;
+                /*
+
+                foreach (var education in resume.Education)
+                {
+                    _context.Entry(education).State = EntityState.Modified;
+                }
+                foreach (var experience in resume.Experiences)
+                {
+                    _context.Entry(experience).State = EntityState.Modified;
+                }
+                foreach (var skill in resume.Skills)
+                {
+                    _context.Entry(skill).State = EntityState.Modified;
+                }
+                foreach (var project in resume.Projects)
+                {
+                    _context.Entry(project).State = EntityState.Modified;
+                }
+                foreach (var certification in resume.Certifications)
+                {
+                    _context.Entry(certification).State = EntityState.Modified;
+                }
+
+                */
+
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ResumeExists(resume.ResumeId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            if(User.IsInRole("Admin"))
+                return RedirectToAction(nameof(Index));
+            else
+                return RedirectToAction(nameof(MyResume));
+
+
+        }
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null || _context.Resume == null)
+            {
+                return NotFound();
+            }
+
+            var resume = await _context.Resume
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (resume == null)
+            {
+                return NotFound();
+            }
+
+            return View(resume);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            if (_context.Resume == null)
+            {
+                return Problem("Entity set 'AppDbContext.Course'  is null.");
+            }
+            var resume = await _context.Resume.FindAsync(id);
+            if (resume != null)
+            {
+                _context.Education.RemoveRange(resume.Education);
+                _context.Skill.RemoveRange(resume.Skills);
+                _context.Certification.RemoveRange(resume.Certifications);
+                _context.Project.RemoveRange(resume.Projects);
+                _context.Experience.RemoveRange(resume.Experiences);
+                _context.Resume.Remove(resume);
+            }
+
+            await _context.SaveChangesAsync();
+            if (User.IsInRole("Admin"))
+                return RedirectToAction(nameof(Index));
+            else
+                return RedirectToAction(nameof(MyResume));
+        }
+
 
 
         private string GetUserId()
@@ -144,6 +267,10 @@ namespace Student_Management_System.Controllers
             var userId = _userManager.GetUserId(user);
             return userId;
 
+        }
+        private bool ResumeExists(int id)
+        {
+            return (_context.Resume?.Any(e => e.ResumeId == id)).GetValueOrDefault();
         }
     }
 }

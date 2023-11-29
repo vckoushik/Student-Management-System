@@ -216,7 +216,7 @@ namespace Student_Management_System.Controllers
             if (_context.CourseRegistration.Any(cr => cr.UserId == UserId && cr.CourseId == id))
             {
                 // Handle the case where the student is already registered for the course
-                return BadRequest("Student is already registered for the course.");
+                return RedirectToAction(nameof(RegisteredCourses));
             }
             if (course != null)
             {
@@ -234,7 +234,7 @@ namespace Student_Management_System.Controllers
             }
            
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(AvailableCourses));
         }
         public IActionResult DropClass(int Id)
         {

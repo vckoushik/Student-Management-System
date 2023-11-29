@@ -105,5 +105,13 @@
     </div>
 </div>
     <a class="btn btn-danger" asp-action="Export" asp-route-id="@Model?.Id">Export</a>
+@if (User.IsInRole("Admin"))
+{
     <a class="btn btn-primary" asp-action="Index">Back to List</a>
+}
+else
+{
+    <a class="btn btn-primary" asp-action="MyResume">Back to List</a>
+}
+
 

@@ -10,7 +10,7 @@
 <div class="table-responsive">
     <table class="table table-bordered table-hover">
         <thead>
-            <tr>
+            <tr class="text-primary">
                 <th>@Html.DisplayNameFor(model => model.CourseId)</th>
                 <th>@Html.DisplayNameFor(model => model.RegistrationDate)</th>
                 <th>@Html.DisplayNameFor(model => model.Course.Name)</th>
@@ -18,10 +18,10 @@
                 <th>Actions</th>
             </tr>
         </thead>
-        <tbody style="text-align:center">
+        <tbody >
             @foreach (var item in Model)
             {
-                <tr>
+                <tr >
                     <td>@Html.DisplayFor(modelItem => item.CourseId)</td>
                     <td>@Html.DisplayFor(modelItem => item.RegistrationDate)</td>
                     <td>@Html.DisplayFor(modelItem => item.Course.Name)</td>

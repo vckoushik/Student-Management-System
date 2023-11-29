@@ -59,7 +59,7 @@ namespace Student_Management_System.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Advisor")]
         public async Task<IActionResult> Create([Bind("Id,Title,Description,PostedOn,LinkToJob,Email,Company,CompanyLogo")] Job job)
         {
             if (ModelState.IsValid)
@@ -71,7 +71,7 @@ namespace Student_Management_System.Controllers
             return View(job);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Advisor")]
         // GET: Jobs/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -93,7 +93,7 @@ namespace Student_Management_System.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Advisor")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,PostedOn,LinkToJob")] Job job)
         {
             if (id != job.Id)
@@ -125,7 +125,7 @@ namespace Student_Management_System.Controllers
         }
 
         // GET: Jobs/Delete/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Advisor")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Job == null)
@@ -146,7 +146,7 @@ namespace Student_Management_System.Controllers
         // POST: Jobs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Advisor")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Job == null)

@@ -47,7 +47,7 @@
         @for (int i = 0; i < 2; i++)
         {
             <div class="education-section">
-                <h4>Education @i</h4>
+                <h4>Education @(i+1)</h4>
                 <div class="form-group">
                     @Html.LabelFor(model => model.Education[i].Degree, "Degree")
                     @Html.TextBoxFor(model => model.Education[i].Degree, new { @class = "form-control" })
@@ -66,14 +66,15 @@
                 </div>
             </div>
         }
-        <button type="button" class="btn btn-secondary" id="addEducation">Add Education</button>
+        
+
 
         <!-- Experiences -->
         <h3>Experiences</h3>
         @for (int i = 0; i < 2; i++)
         {
             <div class="experience-section">
-                <h4>Experience @i</h4>
+                <h4>Experience @(i+1)</h4>
                 <div class="form-group">
                     @Html.LabelFor(model => model.Experiences[i].Title, "Title")
                     @Html.TextBoxFor(model => model.Experiences[i].Title, new { @class = "form-control" })
@@ -92,36 +93,35 @@
                 </div>
             </div>
         }
-        <button type="button" class="btn btn-secondary" id="addExperience">Add Experience</button>
+        
 
         <!-- Skills -->
         <h3>Skills</h3>
         @for (int i = 0; i <5; i++)
         {
             <div class="form-group">
-                @Html.LabelFor(model => model.Skills[i].Name, "Skill "+@i)
+                @Html.LabelFor(model => model.Skills[i].Name, "Skill "+ (i+1))
                 @Html.TextBoxFor(model => model.Skills[i].Name, new { @class = "form-control" })
             </div>
         }
-        <button type="button" class="btn btn-secondary" id="addSkill">Add Skill</button>
+     
 
         <!-- Certifications -->
         <h3>Certifications</h3>
         @for (int i = 0; i < 4; i++)
         {
             <div class="form-group">
-                @Html.LabelFor(model => model.Certifications[i].Name, "Certification "+@i)
+                @Html.LabelFor(model => model.Certifications[i].Name, "Certification "+ (i+1))
                 @Html.TextBoxFor(model => model.Certifications[i].Name, new { @class = "form-control" })
             </div>
         }
-        <button type="button" class="btn btn-secondary" id="addCertification">Add Certification</button>
 
         <!-- Projects -->
         <h3>Projects</h3>
         @for (int i = 0; i < 2; i++)
         {
             <div class="form-group">
-                @Html.LabelFor(model => model.Projects[i].Name, "Project "+@i)
+                @Html.LabelFor(model => model.Projects[i].Name, "Project "+ (i+1))
                 @Html.TextBoxFor(model => model.Projects[i].Name, new { @class = "form-control" })
             </div>
         }

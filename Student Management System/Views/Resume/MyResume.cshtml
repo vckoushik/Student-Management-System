@@ -11,7 +11,7 @@
 </p>
 <table class="table table-bordered table-hover">
     <thead>
-        <tr>
+        <tr class="text-primary">
             <th>
                 @Html.DisplayNameFor(model => model.FirstName)
             </th>
@@ -62,9 +62,9 @@
                     @Html.DisplayFor(modelItem => item.Major)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+                    <a class="btn btn-info"  asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
         }
